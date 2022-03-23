@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+  }
+
+.certificado img{
+    width: 100%;
+    height: 100%;
+}
+
+.certificado #descripcionCurso{
+    width: 50%;
+    height: 50%;
+    right: 5px;
+}
+
+.capacitador{
+    width: 20%;
+    height: 20%;
+}
+.capacitador img{
+    width: 100%;
+    height: 100%;
+}
