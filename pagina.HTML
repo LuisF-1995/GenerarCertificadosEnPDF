@@ -9,24 +9,17 @@
 </head>
 
 <body>
-    <button id="generarCertificado">Generar certificado</button>
-    <button id="guardarCertificado">Guardar certificado</button>
+    <div class="botones">
+        <button id="generarCertificado">Generar certificado</button>
+        <button id="guardarCertificadoPDF">Guardar certificado en PDF</button>
+    </div>
+    <br>
+    <hr>
+    <div class="certificadoCreado">
 
-    <section class="certificado">
-        <img src="./img/plantillaCertificado.png" alt="Fondo certificado">
-        <div class="datos">
-            <p id="nombre"></p>
-            <p id="cedula"></p>
-            <p id="tituloAsistio">Asistió al curso:</p>
-            <p id="descripcionCurso">“Diseño y dimensionamiento de la infraestructura de soporte para el cumplimiento del Reglamento para redes internas de telecomunicaciones RITEL de acuerdo con la resolución 5993 de 2020”</p>
-            </p>
-            <p id="duracionCurso">El curso tuvo una duración de treinta y cinco (35) horas, dictado en Febrero de 2022.
-            </p>
-            <div class="capacitador">
-                <img src="./img/firma.png" alt="Firma capacitador">
-                <p id="nombreCapacitador"></p>
-            </div>
-        </div>
-    </section>
+    </div>
+    <script src="script.js"></script>
+    <script type="text/javascript" src="./js/html2canvas.js"></script>
+    <script type="text/javascript" src="./js/jsPdf.debug.js"></script>
 </body>
 </html>
