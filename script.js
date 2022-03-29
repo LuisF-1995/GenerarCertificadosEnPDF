@@ -67,12 +67,12 @@ function generacionCertificado() {
                           </div>
                           </section>`;
     
-    cajaFila.innerHTML = templateCaja;
+    cajaFila.innerHTML += templateCaja;
   }
   
-  // datosPersona.forEach(persona => crearCaja(persona.nombreEstudiante, persona.documento, persona.descripcionCurso, persona.duracionCurso, persona.firmaCapacitador, persona.nombreCapacitador));
+  datosPersona.forEach(persona => crearCaja(persona.nombreEstudiante, persona.documento, persona.descripcionCurso, persona.duracionCurso, persona.firmaCapacitador, persona.nombreCapacitador));
 
-  crearCaja(datosPersona[0].nombreEstudiante, datosPersona[0].documento, datosPersona[0].descripcionCurso, datosPersona[0].duracionCurso, datosPersona[0].firmaCapacitador, datosPersona[0].nombreCapacitador);
+  //crearCaja(datosPersona[0].nombreEstudiante, datosPersona[0].documento, datosPersona[0].descripcionCurso, datosPersona[0].duracionCurso, datosPersona[0].firmaCapacitador, datosPersona[0].nombreCapacitador);
 
 }
 

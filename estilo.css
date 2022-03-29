@@ -12,14 +12,15 @@
 
 .certificado{
     display:flex;
-    width: 50%;
+    width: 850px;
     margin-top: 2%;
-    margin-left: 20%;
+    margin-left: 10%;
 }
 
 .certificado img{
     width: 100%;
     height: 100%;
+    z-index: 0;
 }
 
 .datos{
@@ -68,7 +69,7 @@
     width: 100%;
     height: 40%;
     position: relative;
-    top: 6%;
+    top: 8%;
     left: 30%;
 }
 .capacitador img{
@@ -77,8 +78,8 @@
 
 #nombreCapacitador{
     position: relative;
-    left: -10%;
-    margin-top: 1%;
+    left: -8%;
+    margin-top: 2%;
     font-weight: bolder;
     font-size: 1.2rem;
     text-align: center;
