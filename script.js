@@ -131,7 +131,7 @@ function generacionCertificado() {
 
     doc.text("Capacitador", 490, 585);
 
-    doc.save("certificado.pdf");
+    doc.save("certificado "+nombreEst+".pdf");
 
   }
 
