@@ -9,12 +9,24 @@
 
     <!--Inclusion libreria jspdf para genara el PDF-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+    <!--Inclusion libreria xlsx para leer libros de excel-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
 
 </head>
 
 <body>
     <div class="botones">
+
+        <div class="cargueArchivo">
+            <input type="file" id="importarExcel" accept=".xls,.xlsx">
+        </div>
+        <div class="botonConvertir">
+            <button id="convertirExcelAJs">Convert</button>
+        </div>
+        <br>
+
         <button id="generarCertificado">Generar certificado</button>
+
     </div>
     <br>
     <hr>
