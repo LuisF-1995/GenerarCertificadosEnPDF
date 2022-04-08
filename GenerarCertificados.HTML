@@ -15,13 +15,24 @@
 </head>
 
 <body>
-    <div class="botones">
 
+    <div class="botones">
+        
+        <h1>Pagina para generacion de Certificados PDF Capacitaciones SM</h1>
+        <br>
+
+        <p>Ingrese firma del capacitador</p>
+        <input type="file" onchange="ImgToBase64(this)">
+        <br>
+        <br>
+
+        <p>Ingrese archivo excel(.xls, .xlsx) con los datos de los asistentes al curso</p>
         <div class="cargueArchivo">
             <input type="file" id="importarExcel" accept=".xls,.xlsx">
         </div>
+        <br>
         <div class="botonConvertir">
-            <button id="convertirExcelAJs">Convert</button>
+            <button id="convertirExcelAJs">Generar Datos</button>
         </div>
         <br>
 
@@ -34,6 +45,10 @@
     
     <div class="certificadoCreado">
     </div>
+
+    <footer text-align="center" align-items="center">
+        <p>Desarrollado por Luis Rodriguez Ortiz para Area capacitaciones SM</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
