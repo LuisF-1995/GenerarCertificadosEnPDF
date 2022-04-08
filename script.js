@@ -1,100 +1,80 @@
-let datosPersona = [
+/*let datosPersona = [
   {
-    nombreEstudiante: "Luis Rodriguez",
-    documento: 1093780708,
+    nombreEstudiante: "",
+    documento: 0,
     descripcionCurso:
       "“Diseño y dimensionamiento de la infraestructura de soporte para el cumplimiento del Reglamento para redes internas de telecomunicaciones RITEL de acuerdo con la resolución 5993 de 2020”",
-    duracionCurso:
-      "El curso tuvo una duración de treinta y cinco (35) horas, dictado en Febrero de 2022",
+    duracionCurso: "El curso tuvo una duración de treinta y cinco (35) horas, dictado en Febrero de 2022",
     firmaCapacitador: "./img/firma.png",
     nombreCapacitador: "Ing. Marcos Quintana",
-  },
-  {
-    nombreEstudiante: "Angie Andrea Pulido",
-    documento: 1093778168,
-    descripcionCurso:
-      "“Diseño y dimensionamiento de la infraestructura de soporte para el cumplimiento del Reglamento para redes internas de telecomunicaciones RITEL de acuerdo con la resolución 5993 de 2020”",
-    duracionCurso:
-      "El curso tuvo una duración de treinta y cinco (35) horas, dictado en Febrero de 2022",
-    firmaCapacitador: "./img/firma.png",
-    nombreCapacitador: "Ing. Oliver Arenas",
-  },
-  {
-    nombreEstudiante: "Ana Botero",
-    documento: 1093779144,
-    descripcionCurso:
-      "“Diseño y contruccion de instalaciones electricas RETIE/RETILAP”",
-    duracionCurso:
-      "El curso tuvo una duración de treinta y cinco (40) horas, dictado en Febrero de 2022",
-    firmaCapacitador: "./img/firma.png",
-    nombreCapacitador: "Ing. Felipe Andres Henao",
-  },
-  {
-    nombreEstudiante: "Felipe Andres Henao",
-    documento: 1093780708,
-    descripcionCurso:
-      "“REVIT basico y avanzado para modelado 3D, con tecnologias BIM”",
-    duracionCurso:
-      "El curso tuvo una duración de treinta y cinco (60) horas, dictado en Marzo de 2022",
-    firmaCapacitador: "./img/firma.png",
-    nombreCapacitador: "Ing. Luis F. Rodriguez",
-  },
-  {
-    nombreEstudiante: "MARIA RANGEL",
-    documento: 630315248,
-    descripcionCurso: "“Cocina para perritos”",
-    duracionCurso:
-      "El curso tuvo una duración de treinta y cinco (20) horas, dictado en Enero de 2022",
-    firmaCapacitador: "./img/firma.png",
-    nombreCapacitador: "Chef. Ana Botero",
-  },
+  }
 ];
+*/
 
 
+function CrearPersona(nombre, cedula){
+  this.nombreEstudiante = nombre;
+  this.documento = cedula;
+}
 
-let datosPersonas = [];
 
 let selectedFile;
 //console.log(window.XLSX);
-document.getElementById('importarExcel').addEventListener("change", (event) => {
-    selectedFile = event.target.files[0];
-})
-
-let data=[{
-    "name":"jayanth",
-    "data":"scd",
-    "abc":"sdef"
-}]
-
-const botonConvertir = document.getElementById('convertirExcelAJs');
-
-botonConvertir.addEventListener("click", () => {
-    XLSX.utils.json_to_sheet(data, 'out.xlsx');
-    if(selectedFile){
-        let fileReader = new FileReader();
-        fileReader.readAsBinaryString(selectedFile);
-
-        fileReader.onload = (event)=>{
-         let data = event.target.result;
-         let workbook = XLSX.read(data,{type:"binary"});
-         //console.log(workbook);
-         
-         workbook.SheetNames.forEach(sheet => {
-              let rowObject = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet]);
-              datosPersonas.push(rowObject);
-
-              //persona = JSON.stringify(rowObject,undefined,4);
-              //console.log(persona);
-         });
-         
-        }
-    }
-    botonConvertir.disabled = true;
+document.getElementById("importarExcel").addEventListener("change", (event) => {
+  selectedFile = event.target.files[0];
 });
 
-//let datosPersonasJSON = JSON.stringify(datosPersonas[0],undefined,4)
+let data = [
+  {
+    name: "jayanth",
+    data: "scd",
+    abc: "sdef",
+  },
+];
 
-console.log(datosPersonas);
+datosCursante = [];
+var datosPersonas = [];
+
+const botonConvertir = document.getElementById("convertirExcelAJs");
+botonConvertir.addEventListener("click", (evento) => {
+  XLSX.utils.json_to_sheet(data, "out.xlsx");
+
+  if (selectedFile) {
+    let fileReader = new FileReader();
+    fileReader.readAsBinaryString(selectedFile);
+
+    fileReader.onload = (event) => {
+      let data = event.target.result;
+      let workbook = XLSX.read(data, { type: "binary" });
+
+      workbook.SheetNames.forEach((sheet) => {
+        lectura = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet]);
+        //persona = JSON.stringify(lectura);       
+      });
+
+
+      for (let i=0; i<lectura.length; i++){
+        nombrePersona = lectura[i].nombre;
+        documentoPersona = lectura[i].cedula;
+        nuevaPersona = new CrearPersona(nombrePersona, documentoPersona)
+        datosPersonas.push(nuevaPersona)
+      }
+
+      datosCursante.push(lectura);
+      
+    };
+  
+  }
+  let datosPersonasJSON = JSON.stringify(datosPersonas);
+  console.log(datosPersonasJSON)
+  
+  botonConvertir.disabled = true;
+});
+
+
+
+
+
 
 
 
