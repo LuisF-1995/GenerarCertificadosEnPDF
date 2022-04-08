@@ -1,0 +1,7 @@
+el archivo de excel, en el encabezado de las columnas, debe llevar lo siguiente:
+
+para el nombre de los participantes, debe ser nombreEstudiante
+
+Para el numero de documento del participante, debe ser documento
+
+En caso de poner un valor distinto, se generaran errores.
