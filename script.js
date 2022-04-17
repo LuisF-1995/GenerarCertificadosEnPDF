@@ -5,7 +5,10 @@ var fondoCertificado =
 
 
 
-var firmaCapactador ='';
+
+  // Funcion para convretir la imagen tomada desde la pagina a base64, ya que es lo que admite jsPDF
+
+let firmaCapactador ='';
 
 function ImgToBase64(firma){
   let img = firma.files[0];
@@ -38,7 +41,7 @@ let data = [
 
 
 const botonConvertir = document.getElementById("convertirExcelAJs");
-botonConvertir.addEventListener("click", (evento) => {
+botonConvertir.addEventListener("click", () => {
 
   // Array de objetos donde se guardara la informacion de cada persona
   let datosPersona = [];
@@ -61,17 +64,76 @@ botonConvertir.addEventListener("click", (evento) => {
 
 
       // trabajar de aqui hacia abajo , que es visible el archivo lectura
+
+
+      // Funcion plantilla para generacion de certificados en PDF
+      function crearPDF(baseCertificado, firmaTutor, nombreEst, docEstudiante, descCurso, duraCurso, nomCapacitador) {
+        // Creacion del PDF
+        const doc = new jsPDF({
+          orientation: "landscape",
+          unit: "px",
+          format: [800, 618], // Respetando la relacion del certificado de 1.29449838 de ancho por alto (1.29 veces mas ancho que alto)
+        });
+
+        // Agregando imagenes en base64
+        doc.addImage(baseCertificado, 0, 0, 800, 618);
+        doc.addImage(firmaTutor, 450, 500, 150, 45);
+
+        //Agregando texto con datos del certificado
+        doc.setFont("times new roman");
+        doc.setFontType("bold");
+        doc.setFontSize(26);
+        doc.text(nombreEst, 345, 255);
+
+        doc.setFontType("");
+        doc.setFontSize(22);
+        doc.text("Documento No: " + docEstudiante.toString(), 345, 280);
+
+        doc.setFontSize(18);
+        doc.text("Asistió al curso:", 345, 320);
+
+        doc.setFontSize(16);
+        let descripcion = doc.splitTextToSize(descCurso, 400); // Debido a que la descripcion es tan larga, se hace necesario recortarla
+        doc.text(descripcion, 345, 350);
+
+        let duracion = doc.splitTextToSize(duraCurso, 400);
+        doc.text(duracion, 345, 420);
+
+        doc.text(nomCapacitador, 465, 565);
+
+        doc.text("Capacitador", 490, 585);
+
+        doc.save("certificado " + nombreEst + ".pdf");
+      }
       
       // verificacion del correcto funcionamiento e la consola
       console.log(datosPersona);
 
 
       const generarCertificado = document.querySelector("#generarCertificado");
-      generarCertificado.addEventListener("click", generacionCertificado);
+      
+      let contadorClicks = 0;
+      generarCertificado.addEventListener("click", function(){
 
-      function generacionCertificado() {
+        crearPDF(
+          fondoCertificado,
+          firmaCapactador,
+          datosPersona[contadorClicks].nombreEstudiante,
+          datosPersona[contadorClicks].documento,
+          datosPersona[contadorClicks].descripcionCurso,
+          datosPersona[contadorClicks].duracionCurso,
+          datosPersona[contadorClicks].nombreCapacitador
+        )
+        contadorClicks++;
+
+        if (contadorClicks>=datosPersona.length){
+          // deshabilita boton de generar certificados para evitar descargar duplicados
+          generarCertificado.disabled = true;
+        }
         
+      });
         
+
         /*
         let cajaFila = document.querySelector(".certificadoCreado");
         cajaFila.innerHTML = ``;
@@ -104,46 +166,8 @@ botonConvertir.addEventListener("click", (evento) => {
         );
         */
 
-        function crearPDF(baseCertificado, firmaTutor, nombreEst, docEstudiante, descCurso, duraCurso, nomCapacitador) {
-          // Creacion del PDF
-          const doc = new jsPDF({
-            orientation: "landscape",
-            unit: "px",
-            format: [800, 618], // Respetando la relacion del certificado de 1.29449838 de ancho por alto (1.29 veces mas ancho que alto)
-          });
-
-          // Agregando imagenes en base64
-          doc.addImage(baseCertificado, 0, 0, 800, 618);
-          doc.addImage(firmaTutor, 450, 500, 150, 45);
-
-          //Agregando texto con datos del certificado
-          doc.setFont("times new roman");
-          doc.setFontType("bold");
-          doc.setFontSize(26);
-          doc.text(nombreEst, 345, 255);
-
-          doc.setFontType("");
-          doc.setFontSize(22);
-          doc.text("Documento No: " + docEstudiante.toString(), 345, 280);
-
-          doc.setFontSize(18);
-          doc.text("Asistió al curso:", 345, 320);
-
-          doc.setFontSize(16);
-          let descripcion = doc.splitTextToSize(descCurso, 400); // Debido a que la descripcion es tan larga, se hace necesario recortarla
-          doc.text(descripcion, 345, 350);
-
-          let duracion = doc.splitTextToSize(duraCurso, 400);
-          doc.text(duracion, 345, 420);
-
-          doc.text(nomCapacitador, 465, 565);
-
-          doc.text("Capacitador", 490, 585);
-
-          doc.save("certificado " + nombreEst + ".pdf");
-        }
-
         // Creacion de los diferentes certificados, uno por uno
+        /*
         datosPersona.forEach((personaCertificado) =>
           crearPDF(
             fondoCertificado,
@@ -155,16 +179,8 @@ botonConvertir.addEventListener("click", (evento) => {
             personaCertificado.nombreCapacitador
           )
         );
-        
+        */
 
-        // deshabilita boton de generar certificados para evitar descargar duplicados
-        generarCertificado.disabled = true;
-      }
-
-
-
-
-      
     };
   }
   botonConvertir.disabled = true;

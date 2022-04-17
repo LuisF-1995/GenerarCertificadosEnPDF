@@ -4,4 +4,8 @@ para el nombre de los participantes, debe ser nombreEstudiante
 
 Para el numero de documento del participante, debe ser documento
 
-En caso de poner un valor distinto, se generaran errores.
+En caso de poner un valor distinto, se generaran errores
+
+La estructura del encabezado es esta:
+
+nombreEstudiante; documento; descripcionCurso; duracionCurso; nombreCapacitador
