@@ -65,7 +65,6 @@ botonConvertir.addEventListener("click", () => {
 
       // trabajar de aqui hacia abajo , que es visible el archivo lectura
 
-
       // Funcion plantilla para generacion de certificados en PDF
       function crearPDF(baseCertificado, firmaTutor, nombreEst, docEstudiante, descCurso, duraCurso, nomCapacitador) {
         // Creacion del PDF
@@ -109,31 +108,31 @@ botonConvertir.addEventListener("click", () => {
       // verificacion del correcto funcionamiento e la consola
       console.log(datosPersona);
 
-
       const generarCertificado = document.querySelector("#generarCertificado");
-      
-      let contadorClicks = 0;
       generarCertificado.addEventListener("click", function(){
+        generarCertificado.disabled = true;
 
-        crearPDF(
-          fondoCertificado,
-          firmaCapactador,
-          datosPersona[contadorClicks].nombreEstudiante,
-          datosPersona[contadorClicks].documento,
-          datosPersona[contadorClicks].descripcionCurso,
-          datosPersona[contadorClicks].duracionCurso,
-          datosPersona[contadorClicks].nombreCapacitador
-        )
-        contadorClicks++;
+        let iterador = 0;
+        let certificado = setInterval(()=>
+                          {crearPDF(
+                            fondoCertificado,
+                            firmaCapactador,
+                            datosPersona[iterador].nombreEstudiante,
+                            datosPersona[iterador].documento,
+                            datosPersona[iterador].descripcionCurso,
+                            datosPersona[iterador].duracionCurso,
+                            datosPersona[iterador].nombreCapacitador
+                            );
+                            iterador++;
 
-        if (contadorClicks>=datosPersona.length){
-          // deshabilita boton de generar certificados para evitar descargar duplicados
-          generarCertificado.disabled = true;
-        }
-        
+                            if(iterador >= datosPersona.length) 
+                            {
+                              clearInterval(certificado);
+                            }
+                          },150);
+
       });
         
-
         /*
         let cajaFila = document.querySelector(".certificadoCreado");
         cajaFila.innerHTML = ``;
@@ -162,21 +161,6 @@ botonConvertir.addEventListener("click", () => {
           crearCaja(
             persona.nombreEstudiante,
             persona.documento
-          )
-        );
-        */
-
-        // Creacion de los diferentes certificados, uno por uno
-        /*
-        datosPersona.forEach((personaCertificado) =>
-          crearPDF(
-            fondoCertificado,
-            firmaCapactador,
-            personaCertificado.nombreEstudiante,
-            personaCertificado.documento,
-            personaCertificado.descripcionCurso,
-            personaCertificado.duracionCurso,
-            personaCertificado.nombreCapacitador
           )
         );
         */
